@@ -1,0 +1,21 @@
+import time
+
+data = [48, 60, -5, 95, 121]
+
+start = time.time()
+
+clean = []
+
+for x in data:
+    if x >= 0:
+        clean.append(x)
+    else:
+        print("Invalid value:", x)
+
+assert all(x >= 0 for x in clean)
+
+print("Clean data:", clean)
+
+end = time.time()
+
+print("Execution time:", end - start)
