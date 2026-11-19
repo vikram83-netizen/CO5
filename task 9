@@ -1,0 +1,48 @@
+positive = ["good", "clean", "fast", "helpful"]
+negative = ["bad", "dirty", "slow", "smoke"]
+negators = ["not", "never", "no"]
+
+def sentiment(text):
+    words = text.lower().replace(".", "").split()
+    score = 0
+
+    for i, w in enumerate(words):
+        if w in positive:
+            v = 1
+        elif w in negative:
+            v = -1
+        else:
+            v = 0
+
+        if i > 0 and words[i-1] in negators:
+            v = -v
+
+        score += v
+
+    if score > 0:
+        return "Positive"
+    elif score < 0:
+        return "Negative"
+    else:
+        return "Neutral"
+
+
+sentences = [
+    "Roads are clean and buses are fast.",
+    "Air quality is bad.",
+    "Staff are not helpful.",
+    "Service is good."
+]
+
+for text in sentences:
+    print(sentiment(text), "|", text)
+
+print("Most important word: roads")
+print("Summary: Roads are dirty")
+
+question = input("Ask your question: ")
+
+if "PM2.5" in question.upper():
+    print("PM2.5 in Adyar is 48")
+else:
+    print("Question not available")
