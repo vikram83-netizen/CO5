@@ -1,0 +1,19 @@
+import matplotlib.pyplot as plt
+
+data = {
+    "Adyar": [48, 60, 50],
+    "Guindy": [95, 121, 80],
+    "Velachery": [40, 55, 45]
+}
+
+for station, values in data.items():
+    print(station, "Average:", sum(values)/len(values))
+
+names = list(data.keys())
+averages = [sum(v)/len(v) for v in data.values()]
+
+plt.bar(names, averages)
+plt.xlabel("Stations")
+plt.ylabel("Average PM2.5")
+plt.title("Air Quality Analysis")
+plt.show()
