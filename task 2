@@ -1,0 +1,42 @@
+import sqlite3
+
+con = sqlite3.connect("air.db")
+cur = con.cursor()
+
+cur.execute("""
+CREATE TABLE IF NOT EXISTS aq(
+station TEXT,
+day TEXT,
+pm25 REAL
+)
+""")
+
+n = int(input("Enter number of records: "))
+
+for i in range(n):
+    station = input("Enter station: ")
+    day = input("Enter date: ")
+    pm25 = float(input("Enter PM2.5 value: "))
+
+    cur.execute(
+        "INSERT INTO aq VALUES (?, ?, ?)",
+        (station, day, pm25)
+    )
+
+con.commit()
+
+name = input("\nEnter station to search: ")
+
+cur.execute(
+    "SELECT AVG(pm25) FROM aq WHERE LOWER(station)=LOWER(?)",
+    (name,)
+)
+
+result = cur.fetchone()[0]
+
+if result is not None:
+    print("Average PM2.5:", round(result, 2))
+else:
+    print("Station not found")
+
+con.close()
