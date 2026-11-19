@@ -1,0 +1,20 @@
+data = [48, "NA", -5, 95, 5, 121]
+
+clean = []
+
+for x in data:
+    try:
+        n = float(x)
+
+        if 0 <= n <= 999:
+            clean.append(n)
+    except:
+        pass
+
+a = min(clean)
+b = max(clean)
+
+normal = [round((x-a)/(b-a), 3) for x in clean]
+
+print("Clean data:", clean)
+print("Normalised:", normal)
