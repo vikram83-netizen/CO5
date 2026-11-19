@@ -1,0 +1,24 @@
+positive = ["good", "clean", "fast", "helpful", "improved"]
+negative = ["bad", "dirty", "slow", "rude", "smoke"]
+
+n = int(input("Enter number of sentences: "))
+
+for i in range(n):
+    text = input("\nEnter sentence: ").lower()
+    words = text.split()
+    score = 0
+
+    for w in words:
+        w = w.strip(".,!?")
+
+        if w in positive:
+            score += 1
+        elif w in negative:
+            score -= 1
+
+    if score > 0:
+        print("Positive Sentiment")
+    elif score < 0:
+        print("Negative Sentiment")
+    else:
+        print("Neutral Sentiment")
