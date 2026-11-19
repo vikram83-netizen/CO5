@@ -1,0 +1,33 @@
+n = int(input("Enter number of records: "))
+data = []
+
+for i in range(n):
+    station = input("Enter station name: ")
+    date = input("Enter date: ")
+    value = input("Enter PM2.5 value: ")
+
+    try:
+        value = float(value)
+
+        if value >= 0:
+            data.append((station, date, value))
+    except:
+        print("Invalid value skipped")
+
+print("\nCleaned Data:")
+
+for r in data:
+    print(r)
+
+if data:
+    values = [r[2] for r in data]
+    minimum = min(values)
+    maximum = max(values)
+
+    print("\nNormalized Values:")
+
+    for v in values:
+        if maximum != minimum:
+            print(round((v - minimum) / (maximum - minimum), 3))
+        else:
+            print(0)
