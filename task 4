@@ -1,0 +1,40 @@
+import pandas as pd
+import sqlite3
+
+data = [
+    ("Adyar", 48),
+    ("Adyar", 60),
+    ("Guindy", 95),
+    ("Guindy", 121)
+]
+
+# Method 1: Python Loop
+total = {}
+count = {}
+
+for station, value in data:
+    total[station] = total.get(station, 0) + value
+    count[station] = count.get(station, 0) + 1
+
+print("Loop:", {s: total[s] / count[s] for s in total})
+
+# Method 2: Pandas
+df = pd.DataFrame(data, columns=["station", "pm25"])
+
+print("\nPandas:")
+print(df.groupby("station")["pm25"].mean())
+
+# Method 3: SQL
+con = sqlite3.connect(":memory:")
+
+df.to_sql("aq", con, index=False, if_exists="replace")
+
+result = pd.read_sql_query(
+    "SELECT station, AVG(pm25) AS average FROM aq GROUP BY station",
+    con
+)
+
+print("\nSQL:")
+print(result)
+
+con.close()
